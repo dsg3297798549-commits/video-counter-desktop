@@ -1,0 +1,40 @@
+{
+  "name": "video-counter-desktop",
+  "version": "1.0.0",
+  "description": "成片计数仪 - 桌面嵌入式投放终端",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64 --dir"
+  },
+  "author": "XD",
+  "license": "MIT",
+  "build": {
+    "appId": "com.xingying.videocounter",
+    "productName": "成片计数仪",
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "src/icon.png",
+      "artifactName": "成片计数仪-${version}.${ext}"
+    },
+    "portable": {
+      "artifactName": "成片计数仪-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "electron": "^33.0.0",
+    "electron-builder": "^25.1.8"
+  }
+}
