@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'">
+<title>成片计数仪</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="gadget" id="gadget">
+  <!-- 标题条（可拖动） -->
+  <div class="ghead" id="ghead">
+    <div class="lamp"></div>
+    <span class="gtitle">成片计数仪</span>
+    <span class="gclock" id="gclock">--:--</span>
+    <button class="ibtn" id="btnLock" title="锁定位置">🔓</button>
+    <button class="ibtn" id="btnSet" title="设置">⚙</button>
+    <button class="ibtn" id="btnClose" title="关闭">✕</button>
+  </div>
+
+  <!-- 读数 -->
+  <div class="readout">
+    <div class="ro">
+      <div class="ro-l">本次投放</div>
+      <div class="ro-v" id="dropNum">0</div>
+    </div>
+    <div class="ro">
+      <div class="ro-l">累计成片</div>
+      <div class="ro-v accent" id="grandTotal">0</div>
+    </div>
+    <div class="ro">
+      <div class="ro-l">累计截图</div>
+      <div class="ro-v dim" id="grandShots">0</div>
+    </div>
+  </div>
+
+  <!-- 投放口 -->
+  <div class="slot" id="drop">
+    <div class="scanline"></div>
+    <div class="slot-in">
+      <div class="slot-icon">⬒</div>
+      <div class="slot-t">拖入剪辑截图</div>
+      <div class="slot-s">点击选择 / Ctrl+V</div>
+    </div>
+    <input type="file" id="fileInput" accept="image/*" multiple hidden>
+  </div>
+
+  <!-- 投递箱 -->
+  <div class="lhead">
+    <span>投递箱</span>
+    <span class="dim" id="inboxCnt">—</span>
+  </div>
+  <div class="flist" id="flist"></div>
+
+  <div class="foot">
+    <button class="mini" id="btnOpen">打开文件夹</button>
+    <span class="foot-tip" id="footTip">每天 14:00 自动处理</span>
+  </div>
+</div>
+
+<!-- 设置面板 -->
+<div class="panel" id="panel" hidden>
+  <div class="panel-box">
+    <div class="panel-title">设置</div>
+
+    <div class="grp">
+      <div class="grp-t">基础数据</div>
+      <label class="row"><span>投递目录</span>
+        <div class="row2"><input id="cfgInbox" readonly><button class="mini" id="pickInbox">…</button></div>
+      </label>
+      <label class="row"><span>归档目录</span>
+        <div class="row2"><input id="cfgArchive" readonly><button class="mini" id="pickArchive">…</button></div>
+      </label>
+      <label class="row"><span>每日处理</span>
+        <input id="cfgTime" type="time">
+      </label>
+      <label class="row"><span>内容线</span>
+        <input id="cfgLines" placeholder="生殖, 胸外, 其他">
+      </label>
+      <label class="row chk"><input type="checkbox" id="cfgAuto"><span>自动处理（有新文件时定时任务自动入账）</span></label>
+    </div>
+
+    <div class="grp">
+      <div class="grp-t">窗口</div>
+      <label class="row chk"><input type="checkbox" id="cfgLock"><span>锁定位置（不可拖动）</span></label>
+      <label class="row chk"><input type="checkbox" id="cfgTop"><span>总在最前</span></label>
+      <label class="row chk"><input type="checkbox" id="cfgEmbed" checked><span>嵌入桌面层（贴在壁纸下方）</span></label>
+      <label class="row"><span>不透明度</span><input type="range" id="cfgOpacity" min="0.5" max="1" step="0.05"></label>
+      <label class="row"><span>尺寸</span>
+        <div class="row2"><input id="cfgW" type="number" min="380" max="900"><input id="cfgH" type="number" min="500" max="1100"></div>
+      </label>
+      <div class="row btnrow">
+        <button class="mini" id="btnEmbedNow">立即嵌入桌面</button>
+        <button class="mini" id="btnUnembed">取消嵌入</button>
+      </div>
+    </div>
+
+    <div class="panel-foot">
+      <span class="mini-note" id="panelNote"></span>
+      <button class="mini" id="btnReset">恢复默认</button>
+      <button class="mini primary" id="btnSave">保存</button>
+      <button class="mini" id="btnCancel">关闭</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden><span id="toastMsg"></span></div>
+
+<script src="app.js"></script>
+</body>
+</html>
